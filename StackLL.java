@@ -7,6 +7,7 @@ public class StackLL<E> {
 
     public void push(E element) {
         this.TOP = new Node<E>(element, this.TOP);
+        E[] temp = new <E>[2];
     }
 
     public E pop() {

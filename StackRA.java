@@ -1,10 +1,15 @@
 public class StackRA<E> {
     private E[] stack;
-    private int size;
+    private int blockSize;
+    private int currentSize;
+    private int buffer;
 
-    public StackRA(){
-        this.stack = null;
-        this.size = 0;
+    public StackRA(int buffer) {
+        if (buffer < 1) throw new 
+    }
+
+    public StackRA() {
+        StackRA(10);
     }
 
     public void push(E element) { //add new thing to end of list

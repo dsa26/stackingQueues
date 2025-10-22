@@ -9,29 +9,29 @@ public class QueueRA<E> {
 
     public void enqueue(E element) {
         size++;
-        E[] temp = new E[size];
-        //dont know what to do about the error here
-        for(int i=0; i<size;i++){ //copy array into new array
-            temp[i]=queue[i];
+        E[] temp = (E[]) new Object[size];
+        // dont know what to do about the error here
+        for (int i = 0; i < size; i++) { // copy array into new array
+            temp[i] = queue[i];
         }
-        temp[size-1]=element;
-        queue=temp;
+        temp[size - 1] = element;
+        queue = temp;
     }
 
     public E dequeue() {
         size--;
-        E[] temp = new E[size];
-        //dont know what to do about the error here
-        for(int i=0; i<size;i++){ //copy array into new array
-            temp[i]=queue[i+1];
+        E[] temp = (E[]) new Object[size];
+        // dont know what to do about the error here
+        for (int i = 0; i < size; i++) { // copy array into new array
+            temp[i] = queue[i + 1];
         }
         E val = queue[0];
-        queue=temp;
+        queue = temp;
         return val;
     }
 
     public boolean isEmpty() {
-        return queue.length==0;
+        return queue.length == 0;
     }
 
     public int size() {

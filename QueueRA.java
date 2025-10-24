@@ -10,7 +10,6 @@ public class QueueRA<E> {
     public void enqueue(E element) {
         size++;
         E[] temp = (E[]) new Object[size];
-        // dont know what to do about the error here
         for (int i = 0; i < size; i++) { // copy array into new array
             temp[i] = queue[i];
         }
@@ -21,7 +20,6 @@ public class QueueRA<E> {
     public E dequeue() {
         size--;
         E[] temp = (E[]) new Object[size];
-        // dont know what to do about the error here
         for (int i = 0; i < size; i++) { // copy array into new array
             temp[i] = queue[i + 1];
         }

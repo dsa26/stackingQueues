@@ -28,6 +28,7 @@ public class PopBench {
             bigStackLL.push("Starting Element No. " + i);
             bigStackRA.push("Starting Element No. " + i);
             bigQueueLL.enqueue("Starting Element No. " + i);
+            bigQueueRA.enqueue("Starting Element No. " + i);
         }
     }
 
@@ -42,6 +43,13 @@ public class PopBench {
     public static void BigStackLL() {
         for (int i = 0; i < 10000; i++) {
             bigStackLL.pop();
+        }
+    }
+
+    @Benchmark
+    public static void BigQueueRA() {
+        for (int i = 0; i < 10000; i++) {
+            bigQueueRA.dequeue();
         }
     }
 

@@ -2,39 +2,62 @@ package src.main.java.bench;
 
 public class QueueRA<E> {
     private E[] queue;
-    private int size;
+    private int blockSize;
+    private int currentSize;
+    private int bufferSize;
+    private int startBuffer;
+
+    public QueueRA(int buffer) {
+        if (buffer < 1)
+            throw new IllegalArgumentException("Buffer size has to be 1 or greater");
+        this.bufferSize = buffer;
+        this.blockSize = buffer;
+        this.currentSize = 0;
+        this.startBuffer = 0;
+        this.queue = (E[]) new Object[blockSize];
+    }
 
     public QueueRA() {
-        this.queue = null;
-        this.size = 0;
+        this(10);
     }
 
     public void enqueue(E element) {
-        size++;
-        E[] temp = (E[]) new Object[size];
-        for (int i = 0; i < size; i++) { // copy array into new array
-            temp[i] = queue[i];
+        if (this.currentSize == this.blockSize) {
+            E[] temp = (E[]) new Object[this.blockSize + this.bufferSize];
+            for (int i = 0; i < this.blockSize; i++) {
+                temp[i] = this.queue[i];
+            }
+            this.queue = temp;
+            this.blockSize += this.bufferSize;
         }
-        temp[size - 1] = element;
-        queue = temp;
+        this.queue[this.currentSize + this.startBuffer] = element;
+        this.currentSize++;
     }
 
     public E dequeue() {
-        size--;
-        E[] temp = (E[]) new Object[size];
-        for (int i = 0; i < size; i++) { // copy array into new array
-            temp[i] = queue[i + 1];
+        if (currentSize == 0) {
+            return null;
+        } else {
+            this.currentSize--;
+            E val = this.queue[0];
+            this.startBuffer++;
+            if (this.startBuffer >= this.bufferSize) {
+                this.startBuffer -= this.bufferSize;
+                E[] temp = (E[]) new Object[this.blockSize - this.bufferSize];
+                for (int i = 0; i < (this.blockSize - this.bufferSize); i++) {
+                    temp[i] = this.queue[i + this.bufferSize];
+                }
+                this.queue = temp;
+            }
+            return val;
         }
-        E val = queue[0];
-        queue = temp;
-        return val;
     }
 
     public boolean isEmpty() {
-        return queue.length == 0;
+        return this.currentSize == 0;
     }
 
     public int size() {
-        return size;
+        return this.currentSize;
     }
 }

@@ -26,7 +26,7 @@ public class StackRA<E> {
                 temp[i] = this.stack[i];
             }
             this.stack = temp;
-            this.blockSize = this.blockSize + this.bufferSize;
+            this.blockSize += this.bufferSize;
         }
         this.stack[this.currentSize] = element;
         this.currentSize++;
@@ -39,7 +39,7 @@ public class StackRA<E> {
             this.currentSize--;
             E val = this.stack[this.currentSize];
             if (this.currentSize <= (this.blockSize - this.bufferSize) && this.blockSize > this.bufferSize) {
-                this.blockSize = this.blockSize - this.bufferSize;
+                this.blockSize -= this.bufferSize;
                 E[] temp = (E[]) new Object[this.blockSize];
                 for (int i = 0; i < (this.blockSize); i++) {
                     temp[i] = this.stack[i];

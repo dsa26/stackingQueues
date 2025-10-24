@@ -28,6 +28,7 @@ public class PushBench {
             bigStackLL.push("Starting Element No. " + i);
             bigStackRA.push("Starting Element No. " + i);
             bigQueueLL.enqueue("Starting Element No. " + i);
+            bigQueueRA.enqueue("Starting Element No. " + i);
         }
     }
 
@@ -58,6 +59,21 @@ public class PushBench {
     public static void BigStackLL() {
         for (int i = 0; i < 10000; i++) {
             bigStackLL.push("Element No. " + i);
+        }
+    }
+
+    @Benchmark
+    public static void SmallQueueRA() {
+        QueueRA<String> queueRA = new QueueRA<>();
+        for (int i = 0; i < 10000; i++) {
+            queueRA.enqueue("Element No. " + i);
+        }
+    }
+
+    @Benchmark
+    public static void BigQueueRA() {
+        for (int i = 0; i < 10000; i++) {
+            bigQueueRA.enqueue("Element No. " + i);
         }
     }
 

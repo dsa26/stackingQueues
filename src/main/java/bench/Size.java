@@ -28,6 +28,7 @@ public class Size {
             bigStackLL.push("Starting Element No. " + i);
             bigStackRA.push("Starting Element No. " + i);
             bigQueueLL.enqueue("Starting Element No. " + i);
+            bigQueueRA.enqueue("Starting Element No. " + i);
         }
     }
 
@@ -39,6 +40,11 @@ public class Size {
     @Benchmark
     public static int StackLL() {
         return bigStackLL.size();
+    }
+
+    @Benchmark
+    public static int QueueRA() {
+        return bigQueueRA.size();
     }
 
     @Benchmark

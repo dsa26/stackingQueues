@@ -22,7 +22,7 @@ public class QueueRA<E> {
     }
 
     public void enqueue(E element) {
-        if (this.currentSize == this.blockSize) {
+        if ((this.currentSize + this.startBuffer) == this.blockSize) {
             E[] temp = (E[]) new Object[this.blockSize + this.bufferSize];
             for (int i = 0; i < this.blockSize; i++) {
                 temp[i] = this.queue[i];
@@ -42,11 +42,12 @@ public class QueueRA<E> {
             E val = this.queue[0];
             this.startBuffer++;
             if (this.startBuffer >= this.bufferSize) {
-                this.startBuffer -= this.bufferSize;
-                E[] temp = (E[]) new Object[this.blockSize - this.bufferSize];
-                for (int i = 0; i < (this.blockSize - this.bufferSize); i++) {
+                this.blockSize -= this.bufferSize;
+                E[] temp = (E[]) new Object[this.blockSize];
+                for (int i = 0; i < (this.blockSize); i++) {
                     temp[i] = this.queue[i + this.bufferSize];
                 }
+                this.startBuffer -= this.bufferSize;
                 this.queue = temp;
             }
             return val;

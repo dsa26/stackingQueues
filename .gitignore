@@ -1,3 +1,5 @@
 LinkedList.java
 *.class
 .idea/
+target/
+dependency-reduced-pom.xml

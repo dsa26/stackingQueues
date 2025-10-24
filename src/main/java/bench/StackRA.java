@@ -1,3 +1,5 @@
+package src.main.java.bench;
+
 public class StackRA<E> {
     private E[] stack;
     private int blockSize;
@@ -31,17 +33,21 @@ public class StackRA<E> {
     }
 
     public E pop() {
-        this.currentSize--;
-        E val = this.stack[this.currentSize];
-        if (this.currentSize <= (this.blockSize - this.bufferSize) && this.blockSize > this.bufferSize) {
-            E[] temp = (E[]) new Object[this.blockSize - this.bufferSize];
-            for (int i = 0; i < (this.blockSize - this.bufferSize); i++) {
-                temp[i] = this.stack[i];
+        if (currentSize == 0) {
+            return null;
+        } else {
+            this.currentSize--;
+            E val = this.stack[this.currentSize];
+            if (this.currentSize <= (this.blockSize - this.bufferSize) && this.blockSize > this.bufferSize) {
+                this.blockSize = this.blockSize - this.bufferSize;
+                E[] temp = (E[]) new Object[this.blockSize];
+                for (int i = 0; i < (this.blockSize); i++) {
+                    temp[i] = this.stack[i];
+                }
+                this.stack = temp;
             }
-            this.stack = temp;
-            this.blockSize = this.blockSize - this.bufferSize;
+            return val;
         }
-        return val;
     }
 
     public E peek() {
